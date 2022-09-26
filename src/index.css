@@ -5,9 +5,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(56, 60, 60);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.sidebar {
+background-color: #36393f
+}
+
+.channel {
+  background-color: #383c3c;
+  color: white;
+}
+
+.notFound {
+  color: white
+}
+
+#channel_button {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.hover:hover {
+  background-color: grey;
+}
+
+.active{
+  background-color: grey;
+  font-weight: bold;
 }
