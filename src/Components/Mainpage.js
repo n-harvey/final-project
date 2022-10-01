@@ -63,6 +63,19 @@ const Mainpage = () => {
     await fetchUsers();
   };
 
+  const deleteUser = async (user) => {
+    console.log(user.user)
+    const resp = await managerAPI.get()
+    const API = resp.filter((object) => object.type ==="users")[0]
+    const ID = API._id
+    delete API._id
+    API.users = API.users.filter((users) => users.username !== user.user)
+    setlogin(false)
+    await managerAPI.put(ID, API)
+    await fetchUsers()
+
+  }
+
   useEffect(() => {
     fetchChannels();
     fetchUsers();
@@ -70,60 +83,33 @@ const Mainpage = () => {
 
   console.log(login);
   if (login) {
-    if (user === "admin") {
       return (
-        <Container>
+        <Container fluid className="">
           <Navbar bg="dark" variant="dark">
-            <Navbar.Brand>
-              Fake Discord
-            </Navbar.Brand>
+            <Navbar.Brand>Flack</Navbar.Brand>
             <Nav className="ms-auto">
-            <Nav.Link as={Link} to={'/'}>{user}</Nav.Link>
+              <Nav.Link as={Link} to={"/"}>
+                {user}
+              </Nav.Link>
             </Nav>
-            <Button variant='dark' onClick={() => setlogin(false)}>Logout</Button>
+            <Button
+              variant="dark"
+              onClick={() => {
+                setlogin(false);
+                navigate("/");
+              }}
+            >
+              Logout
+            </Button>
           </Navbar>
-          <Row>
-            <Col md={2} >
+          <Row className="mx-0">
+            <Col sm={3} md={1} className="sidebar">
               <Sidebar channels={channels} />
             </Col>
-            <Col xlg='auto'>
+            <Col className="channel">
               <Routes>
                 <Route path="/backendcontrols" element={<Backend />} />
-                <Route path="/" element={<Home user={user} />} />
-                <Route
-                  path="/channel/:channelID"
-                  element={<Channel user={user} />}
-                />
-                <Route
-                  path="/createChannel"
-                  element={<CreateChannel create={createChannel} />}
-                />
-                <Route path="*" element={<PageNotFound />} />
-              </Routes>
-            </Col>
-          </Row>
-        </Container>
-      );
-    }
-    return (
-        <Container>
-          <Navbar bg="dark" variant="dark">
-            <Navbar.Brand>
-              Fake Discord
-            </Navbar.Brand>
-            <Nav className="ms-auto">
-            <Nav.Link as={Link} to={'/'}>{user}</Nav.Link>
-            </Nav>
-            <Button variant='dark' onClick={() => setlogin(false)}>Logout</Button>
-          </Navbar>
-          <Row>
-            <Col md={2} >
-              <Sidebar channels={channels} />
-            </Col>
-            <Col xlg='auto'>
-              <Routes>
-                <Route path="/backendcontrols" element={<Backend />} />
-                <Route path="/" element={<Home user={user} />} />
+                <Route path="/" element={<Home user={user} deleteUser={deleteUser} />} />
                 <Route
                   path="/channel/:channelID"
                   element={<Channel user={user} />}
@@ -141,9 +127,9 @@ const Mainpage = () => {
   } else {
     return (
       <>
-        <Container fluid>
-          <Row>
-            <Col>
+        <Container fluid className=''>
+          <Row className=''>
+            <Col className='d-flex justify-content-center align-items-center vh-100'>
               <Routes>
                 <Route
                   path="/"

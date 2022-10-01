@@ -39,6 +39,7 @@ const MessageInput = (props) => {
     const handleEnter = (event) => {
         setMessage({...message, time: currentTime()})
         if(event.code === "Enter"){
+            event.preventDefault()
             addMessage(message)
             setMessage({...message, message: ''})
         }

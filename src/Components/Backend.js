@@ -88,14 +88,6 @@ const BackendControls = () => {
                 <button className="btn btn-primary" onClick={createUsers}>Create User Array in API</button>
             </Col>            
         </Row>
-                <Row className="text-center">
-                <Col>
-                    <button className="btn btn-danger">Delete Channel Array in API</button>
-                </Col>
-                <Col>
-                    <button className="btn btn-danger">Delete User Array in API</button>
-                </Col>            
-            </Row>
             <Row>
                 <Col>
                 <button onClick={fetchData}>Display API</button>
